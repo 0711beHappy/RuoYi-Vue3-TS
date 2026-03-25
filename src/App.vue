@@ -1,7 +1,11 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+
 </script>
 
 <template>
-  <HelloWorld />
+  <div class="app-container">
+    <h1 class="text-2xl font-bold text-center mt-10 text-green-500">RuoYi-Vue3-TS 重构版</h1>
+  </div>
 </template>
+
+<style lang="scss"  scoped></style>
