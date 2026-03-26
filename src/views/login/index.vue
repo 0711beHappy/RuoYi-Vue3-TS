@@ -9,7 +9,7 @@ const password = ref('123456')
 
 const login = () => {
   ElMessage.success('登录成功')
-  router.push('/dashboard')
+  router.push('/index')
 }
 </script>
 
