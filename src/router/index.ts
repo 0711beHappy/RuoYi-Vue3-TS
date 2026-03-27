@@ -26,6 +26,11 @@ export const constantRoutes: RouteRecordRaw[] = [
       }
     ]
   },
+  {
+    path: '/404',
+    component: () => import('@/views/error/404.vue'),
+    meta: { hidden: true },
+  },
 ]
 
 /**
