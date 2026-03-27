@@ -1,45 +1,35 @@
 import { defineStore } from 'pinia'
-
-// 定义类型
-interface Sidebar {
-  collapse: boolean
-  opened: boolean
-}
-
-interface AppState {
-  sidebar: Sidebar
-  device: 'desktop' | 'mobile'
-  size: 'default' | 'small' | 'large'
-  routes: any[] // 先给 any，后面动态路由再细化类型
-}
+import Cookies from 'js-cookie'
+import type { AppState } from '@/types/app'
 
 export const useAppStore = defineStore('app', {
   state: (): AppState => ({
     sidebar: {
-      collapse: false,
-      opened: true
+      opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus')! : true,
+      withoutAnimation: false
     },
     device: 'desktop',
-    size: 'default',
-    routes: [] // 先空数组，后面权限模块再赋值
+    size: 'default'
   }),
 
   getters: {
-    isCollapse: (state) => state.sidebar.collapse
+    isCollapse: (state) => !state.sidebar.opened
   },
 
   actions: {
-    toggleSidebar() {
-      this.sidebar.collapse = !this.sidebar.collapse
+    toggleSideBar() {
+      this.sidebar.opened = !this.sidebar.opened
+      Cookies.set('sidebarStatus', this.sidebar.opened ? '1' : '0')
     },
-    closeSidebar() {
+
+    closeSideBar(withoutAnimation: boolean) {
       this.sidebar.opened = false
+      this.sidebar.withoutAnimation = withoutAnimation
+      Cookies.set('sidebarStatus', '0')
     },
-    setDevice(device: 'desktop' | 'mobile') {
+
+    toggleDevice(device: 'desktop' | 'mobile') {
       this.device = device
-    },
-    setRoutes(routes: any[]) {
-      this.routes = routes
     }
   }
 })
