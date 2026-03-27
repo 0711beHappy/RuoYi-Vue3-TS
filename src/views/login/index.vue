@@ -74,8 +74,15 @@ const handleLogin = () => {
 
     try {
       await new Promise(resolve => setTimeout(resolve, 500))
+      
+      // 登录成功：存入 token（让路由守卫识别已登录）
+      localStorage.setItem('token', 'ry-token')
+      
       ElMessage.success('登录成功')
-      router.push({ path: redirect.value || '/index' })
+      
+      // 跳转到 /index
+      router.push({ path: '/index' })
+
     } catch (error) {
       ElMessage.error('登录失败')
     } finally {
@@ -153,7 +160,7 @@ onMounted(() => {
                 @keyup.enter="handleLogin"
               >
                 <template #prefix>
-                  <el-icon class="el-input__icon ml-1 text-gray-400"><Shield /></el-icon>
+                  <el-icon class="el-input__icon ml-1 text-gray-400"><Lock /></el-icon>
                 </template>
               </el-input>
             </div>
