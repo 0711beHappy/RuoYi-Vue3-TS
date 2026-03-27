@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type { RouteRecordRaw } from 'vue-router'
+
 const props = defineProps<{
   routes: RouteRecordRaw[]
 }>()
